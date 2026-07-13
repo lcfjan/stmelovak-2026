@@ -6,7 +6,7 @@
 <title>Jeseník — 29.–31. července 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #1a1410; --paper: #faf8f3; --card: #ffffff; --muted: #7a7067;
@@ -15,25 +15,25 @@
     --shadow: 0 2px 20px rgba(26,20,16,0.07); --r: 12px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Exo', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
   .hero { background: var(--ink); color: var(--paper); padding: 3rem 1.5rem 2.5rem; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; right: -34px; top: 8px; width: 360px; height: 150px; background: url('advenio_logo_white.png') no-repeat right top / contain; opacity: 0.05; pointer-events: none; }
   .hero-logo { height: 34px; width: auto; display: block; margin-bottom: 1.25rem; }
   .hero-eyebrow { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.75rem; }
-  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem,8vw,3.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 0.5rem; }
+  .hero h1 { font-family: 'Exo', sans-serif; font-size: clamp(2rem,8vw,3.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 0.5rem; }
   .hero-sub { font-size: 14px; color: rgba(250,248,243,0.55); margin-bottom: 1.5rem; font-weight: 300; }
   .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
   .hero-pill { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 99px; padding: 5px 14px; font-size: 12px; color: rgba(250,248,243,0.75); }
   .container { max-width: 680px; margin: 0 auto; padding: 0 1rem; }
   .section-header { padding: 2rem 0 0.75rem; display: flex; align-items: center; gap: 10px; }
-  .section-header h2 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--ink); }
+  .section-header h2 { font-family: 'Exo', sans-serif; font-size: 18px; font-weight: 700; color: var(--ink); }
   .section-line { flex: 1; height: 1px; background: var(--border); }
 
   .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
   .booking-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1rem; box-shadow: var(--shadow); }
   .booking-airline { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-  .booking-ref { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: 0.05em; }
+  .booking-ref { font-family: 'Exo', sans-serif; font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: 0.05em; }
   .booking-who { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
   .booking-route { font-size: 12px; color: var(--accent3); font-weight: 500; margin-top: 4px; }
 
@@ -48,7 +48,7 @@
   .day-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 12px; overflow: hidden; box-shadow: var(--shadow); }
   .day-header { display: flex; align-items: center; gap: 14px; padding: 1rem 1.25rem; cursor: pointer; -webkit-tap-highlight-color: transparent; user-select: none; }
   .day-header:active { background: var(--paper); }
-  .day-num { width: 46px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .day-num { width: 46px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Exo', sans-serif; font-size: 13px; font-weight: 700; flex-shrink: 0; }
   .day-meta { flex: 1; min-width: 0; }
   .day-date { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1px; }
   .day-title { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.3; }
@@ -95,7 +95,7 @@
   .money-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
   .money-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1rem; box-shadow: var(--shadow); }
   .money-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-  .money-amount { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--ink); }
+  .money-amount { font-family: 'Exo', sans-serif; font-size: 22px; font-weight: 700; color: var(--ink); }
   .money-note { font-size: 11px; color: var(--muted); margin-top: 3px; }
 
   .tips-list { list-style: none; margin-top: 1rem; }
@@ -105,7 +105,7 @@
   .tips-bullet { width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
 
   footer { margin-top: 3rem; padding: 2rem 1.5rem; border-top: 1px solid var(--border); text-align: center; }
-  .footer-eu { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--muted); margin-bottom: 0.5rem; opacity: 0.4; }
+  .footer-eu { font-family: 'Exo', sans-serif; font-size: 28px; color: var(--muted); margin-bottom: 0.5rem; opacity: 0.4; }
   .footer-emoji { font-size: 26px; letter-spacing: 6px; line-height: 1.8; }
   .footer-text { font-size: 12px; color: var(--muted); }
 
@@ -135,6 +135,7 @@
   .weather-day-date { font-size: 9px; color: var(--muted); margin-bottom: 2px; }
   .weather-day.today .weather-day-date { color: rgba(250,248,243,0.45); }
   .weather-icon { font-size: 22px; line-height: 1; margin: 3px 0; }
+  .weather-icon svg.wx { width: 36px; height: 36px; display: block; filter: drop-shadow(0 1px 1.5px rgba(26,20,16,0.18)); }
   .weather-hi { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1; }
   .weather-day.today .weather-hi { color: var(--paper); }
   .weather-lo { font-size: 11px; color: var(--muted); }
@@ -450,16 +451,26 @@ function toggleDay(header) {
   chev.classList.toggle('open', !chev.classList.contains('open'));
 }
 // WEATHER
+const WX = {
+  sun:`<svg viewBox="0 0 40 40" class="wx"><g stroke="#FFB01F" stroke-width="2.4" stroke-linecap="round"><line x1="20" y1="2" x2="20" y2="8"/><line x1="20" y1="32" x2="20" y2="38"/><line x1="2" y1="20" x2="8" y2="20"/><line x1="32" y1="20" x2="38" y2="20"/><line x1="7" y1="7" x2="11" y2="11"/><line x1="29" y1="29" x2="33" y2="33"/><line x1="33" y1="7" x2="29" y2="11"/><line x1="11" y1="29" x2="7" y2="33"/></g><circle cx="20" cy="20" r="9" fill="#FFC93C" stroke="#FF9E1B" stroke-width="1.5"/></svg>`,
+  part:`<svg viewBox="0 0 40 40" class="wx"><g stroke="#FFB01F" stroke-width="2.2" stroke-linecap="round"><line x1="13" y1="1" x2="13" y2="6"/><line x1="2" y1="12" x2="7" y2="12"/><line x1="4" y1="4" x2="8" y2="8"/><line x1="22" y1="4" x2="18" y2="8"/></g><circle cx="13" cy="12" r="6.5" fill="#FFC93C"/><ellipse cx="17" cy="27" rx="12" ry="8.5" fill="#C6D3E0"/><ellipse cx="26" cy="25" rx="8" ry="7" fill="#DCE6F0"/><circle cx="12" cy="26" r="7" fill="#DCE6F0"/></svg>`,
+  cloud:`<svg viewBox="0 0 40 40" class="wx"><g transform="translate(0,4)"><circle cx="11" cy="20" r="8" fill="#B9C7D6"/><circle cx="20" cy="15" r="10" fill="#CBD8E5"/><circle cx="29" cy="20" r="8" fill="#B9C7D6"/><rect x="9" y="19" width="22" height="10" rx="5" fill="#CBD8E5"/></g></svg>`,
+  fog:`<svg viewBox="0 0 40 40" class="wx"><circle cx="12" cy="14" r="7" fill="#CBD8E5"/><circle cx="21" cy="11" r="8.5" fill="#DCE6F0"/><circle cx="29" cy="14" r="7" fill="#CBD8E5"/><rect x="10" y="13" width="20" height="8" rx="4" fill="#DCE6F0"/><g stroke="#9AA7B5" stroke-width="2.4" stroke-linecap="round"><line x1="7" y1="27" x2="33" y2="27"/><line x1="11" y1="33" x2="29" y2="33"/></g></svg>`,
+  rain:`<svg viewBox="0 0 40 40" class="wx"><circle cx="12" cy="14" r="8" fill="#9FB2C6"/><circle cx="21" cy="10" r="10" fill="#B4C4D5"/><circle cx="30" cy="15" r="8" fill="#9FB2C6"/><rect x="10" y="13" width="22" height="9" rx="4.5" fill="#B4C4D5"/><g stroke="#3FA0E6" stroke-width="2.6" stroke-linecap="round"><line x1="14" y1="26" x2="11" y2="34"/><line x1="22" y1="26" x2="19" y2="34"/><line x1="30" y1="26" x2="27" y2="34"/></g></svg>`,
+  snow:`<svg viewBox="0 0 40 40" class="wx"><circle cx="12" cy="14" r="8" fill="#C6D3E0"/><circle cx="21" cy="10" r="10" fill="#DCE6F0"/><circle cx="30" cy="15" r="8" fill="#C6D3E0"/><rect x="10" y="13" width="22" height="9" rx="4.5" fill="#DCE6F0"/><g fill="#5FB0EC"><circle cx="13" cy="29" r="2.3"/><circle cx="21" cy="33" r="2.3"/><circle cx="29" cy="29" r="2.3"/></g></svg>`,
+  storm:`<svg viewBox="0 0 40 40" class="wx"><circle cx="12" cy="14" r="8" fill="#8E9EB0"/><circle cx="21" cy="10" r="10" fill="#A4B3C4"/><circle cx="30" cy="15" r="8" fill="#8E9EB0"/><rect x="10" y="13" width="22" height="9" rx="4.5" fill="#A4B3C4"/><polygon points="21,23 15,34 20,34 17,40 27,28 22,28 25,23" fill="#FFC61A" stroke="#F5A700" stroke-width="0.8"/></svg>`
+};
 const WMO = c => {
-  if (c===0) return {icon:'☀️'};
-  if (c<=2) return {icon:'🌤️'};
-  if (c<=3) return {icon:'☁️'};
-  if (c<=48) return {icon:'🌫️'};
-  if (c<=57) return {icon:'🌦️'};
-  if (c<=67) return {icon:'🌧️'};
-  if (c<=77) return {icon:'❄️'};
-  if (c<=82) return {icon:'🌧️'};
-  return {icon:'⛈️'};
+  if (c===0) return {icon:WX.sun};
+  if (c<=2) return {icon:WX.part};
+  if (c<=3) return {icon:WX.cloud};
+  if (c<=48) return {icon:WX.fog};
+  if (c<=57) return {icon:WX.rain};
+  if (c<=67) return {icon:WX.rain};
+  if (c<=77) return {icon:WX.snow};
+  if (c<=82) return {icon:WX.rain};
+  if (c<=86) return {icon:WX.snow};
+  return {icon:WX.storm};
 };
 async function loadWeather(lat, lon, scrollId, updId) {
   try {
@@ -556,7 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.beginPath();ctx.arc(x,y,7,0,2*Math.PI);ctx.fillStyle='rgba(255,210,60,0.2)';ctx.fill();
       ctx.beginPath();ctx.arc(x,y,3,0,2*Math.PI);ctx.fillStyle='#ffd040';ctx.fill();
       ctx.strokeStyle='rgba(0,0,0,0.55)';ctx.lineWidth=0.8;ctx.stroke();
-      ctx.font='700 9px DM Sans,sans-serif';ctx.fillStyle='#fff';
+      ctx.font='700 9px Exo,sans-serif';ctx.fillStyle='#fff';
       ctx.shadowColor='rgba(0,0,0,0.9)';ctx.shadowBlur=4;
       ctx.fillText(c.name,x+5,y+2);ctx.shadowBlur=0;
     });
