@@ -1,0 +1,1 @@
+# stmelovak-2026
