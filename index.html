@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeseník — 29.–31. července 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410; --paper: #faf8f3; --card: #ffffff; --muted: #7a7067;
+    --accent: #c94b2a; --accent2: #2e5d4b; --accent3: #1d3557;
+    --gold: #b8860b; --border: rgba(26,20,16,0.1);
+    --shadow: 0 2px 20px rgba(26,20,16,0.07); --r: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .hero { background: var(--ink); color: var(--paper); padding: 3rem 1.5rem 2.5rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; right: -34px; top: 8px; width: 360px; height: 150px; background: url('advenio_logo_white.png') no-repeat right top / contain; opacity: 0.05; pointer-events: none; }
+  .hero-logo { height: 34px; width: auto; display: block; margin-bottom: 1.25rem; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.75rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem,8vw,3.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 0.5rem; }
+  .hero-sub { font-size: 14px; color: rgba(250,248,243,0.55); margin-bottom: 1.5rem; font-weight: 300; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero-pill { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 99px; padding: 5px 14px; font-size: 12px; color: rgba(250,248,243,0.75); }
+  .container { max-width: 680px; margin: 0 auto; padding: 0 1rem; }
+  .section-header { padding: 2rem 0 0.75rem; display: flex; align-items: center; gap: 10px; }
+  .section-header h2 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--ink); }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
+  .booking-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1rem; box-shadow: var(--shadow); }
+  .booking-airline { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .booking-ref { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: 0.05em; }
+  .booking-who { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .booking-route { font-size: 12px; color: var(--accent3); font-weight: 500; margin-top: 4px; }
+
+  .transport-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem; margin-top: 1rem; box-shadow: var(--shadow); }
+  .transport-box h4 { font-size: 13px; font-weight: 600; margin-bottom: 0.75rem; color: var(--ink); }
+  .transport-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; font-size: 13px; }
+  .transport-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
+  .t-blue { background: #e3f0fb; } .t-green { background: #e3f5ec; } .t-amber { background: #fef3e0; }
+  .transport-text { color: var(--muted); line-height: 1.5; }
+  .transport-text b { color: var(--ink); font-weight: 500; }
+
+  .day-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 12px; overflow: hidden; box-shadow: var(--shadow); }
+  .day-header { display: flex; align-items: center; gap: 14px; padding: 1rem 1.25rem; cursor: pointer; -webkit-tap-highlight-color: transparent; user-select: none; }
+  .day-header:active { background: var(--paper); }
+  .day-num { width: 46px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .day-meta { flex: 1; min-width: 0; }
+  .day-date { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1px; }
+  .day-title { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .day-tagline { font-size: 12px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .day-chevron { color: var(--muted); font-size: 11px; transition: transform 0.25s; flex-shrink: 0; }
+  .day-chevron.open { transform: rotate(180deg); }
+  .day-body { display: none; border-top: 1px solid var(--border); }
+  .day-body.open { display: block; }
+
+  .info-card { background: #f5f1e8; border: 1px solid rgba(184,134,11,0.18); }
+  .info-card .day-header:active { background: #ede8d8; }
+  .info-card .day-num { background: rgba(184,134,11,0.15) !important; color: var(--gold) !important; }
+  .info-divider { border: none; border-top: 2px solid var(--border); margin: 2.5rem 0 1.5rem; position: relative; }
+  .info-divider::after { content: 'Reference'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--paper); padding: 0 12px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+
+  .alert { background: #fef9ec; border-left: 3px solid var(--gold); padding: 0.85rem 1rem 0.85rem 1.25rem; margin: 0; font-size: 13px; color: #5a4500; line-height: 1.6; }
+  .alert b { font-weight: 600; }
+  .alert-blue { background: #e8f2fc; border-left: 3px solid #4a90d9; color: #0c447c; }
+  .alert-green { background: #e8f7ed; border-left: 3px solid #2e9e5b; color: #0a4a20; }
+  .alert-purple { background: #f3f0fe; border-left: 3px solid #7c3aed; color: #3b1c8c; }
+
+  .activity { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; gap: 14px; }
+  .activity:last-child { border-bottom: none; }
+  .activity-time { font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; min-width: 52px; padding-top: 2px; text-align: right; flex-shrink: 0; }
+  .activity-content { flex: 1; min-width: 0; }
+  .activity-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 3px; line-height: 1.35; }
+  .activity-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .activity-desc a { color: var(--accent3); text-decoration: none; border-bottom: 1px solid rgba(29,53,87,0.25); }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 99px; border: 1px solid; white-space: nowrap; }
+  .tag-flight { background: #e3f0fb; border-color: #b5d4f4; color: #0c447c; }
+  .tag-train  { background: #eeedfe; border-color: #cecbf6; color: #3c3489; }
+  .tag-food   { background: #fef3e0; border-color: #fac775; color: #633806; }
+  .tag-walk   { background: #e3f5ec; border-color: #9fe1cb; color: #085041; }
+  .tag-culture{ background: #faece7; border-color: #f5c4b3; color: #712b13; }
+  .tag-hotel  { background: #f1efe8; border-color: #d3d1c7; color: #444441; }
+  .tag-tip    { background: #1a1410; border-color: #444; color: #faf8f3; }
+  .tag-beer   { background: #fef3e0; border-color: #e8a020; color: #7a3a00; }
+  .tag-bday   { background: #fce7f3; border-color: #f9a8d4; color: #831843; }
+
+  .venue-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 12px; font-weight: 500; color: var(--accent3); text-decoration: none; background: rgba(29,53,87,0.06); border: 1px solid rgba(29,53,87,0.15); border-radius: 99px; padding: 4px 12px; }
+
+  .money-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
+  .money-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1rem; box-shadow: var(--shadow); }
+  .money-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .money-amount { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--ink); }
+  .money-note { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  .tips-list { list-style: none; margin-top: 1rem; }
+  .tips-list li { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .tips-list li:last-child { border-bottom: none; }
+  .tips-list li b { color: var(--ink); font-weight: 500; }
+  .tips-bullet { width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  footer { margin-top: 3rem; padding: 2rem 1.5rem; border-top: 1px solid var(--border); text-align: center; }
+  .footer-eu { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--muted); margin-bottom: 0.5rem; opacity: 0.4; }
+  .footer-emoji { font-size: 26px; letter-spacing: 6px; line-height: 1.8; }
+  .footer-text { font-size: 12px; color: var(--muted); }
+
+  /* Day colors by segment */
+  .day-dep    .day-num { background: #e3f0fb; color: #0c447c; }
+  .day-jesenik .day-num { background: #e3f5ec; color: #085041; }
+  .day-sat    .day-num { background: #eeedfe; color: #3c3489; }
+  .day-zbiroh .day-num { background: #f5f1e8; color: var(--gold); }
+  .day-nantes .day-num { background: #e3f5ec; color: #085041; }
+  .day-sables .day-num { background: #fef3e0; color: #633806; }
+  .day-paris  .day-num { background: #faece7; color: #c94b2a; }
+  .day-return .day-num { background: #1a1410; color: #faf8f3; }
+
+  /* Weather */
+  .weather-section { margin-top: 1.25rem; }
+  .weather-widget { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 10px; }
+  .weather-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.1rem 0.6rem; border-bottom: 1px solid var(--border); }
+  .weather-title { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+  .weather-location { font-size: 11px; color: var(--muted); }
+  .weather-updated { font-size: 10px; color: var(--muted); }
+  .weather-scroll { display: flex; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding: 0.9rem 0.75rem; gap: 8px; }
+  .weather-scroll::-webkit-scrollbar { display: none; }
+  .weather-day { flex: 0 0 auto; width: 80px; background: var(--paper); border: 1px solid var(--border); border-radius: 10px; padding: 0.65rem 0.5rem 0.7rem; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .weather-day.today { background: var(--ink); border-color: var(--ink); }
+  .weather-day-name { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .weather-day.today .weather-day-name { color: rgba(250,248,243,0.6); }
+  .weather-day-date { font-size: 9px; color: var(--muted); margin-bottom: 2px; }
+  .weather-day.today .weather-day-date { color: rgba(250,248,243,0.45); }
+  .weather-icon { font-size: 22px; line-height: 1; margin: 3px 0; }
+  .weather-hi { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1; }
+  .weather-day.today .weather-hi { color: var(--paper); }
+  .weather-lo { font-size: 11px; color: var(--muted); }
+  .weather-day.today .weather-lo { color: rgba(250,248,243,0.5); }
+  .weather-rain { font-size: 10px; color: #4a90d9; font-weight: 500; margin-top: 2px; }
+  .weather-day.today .weather-rain { color: #90caf9; }
+  .weather-rain:empty { display: none; }
+  .weather-loading { padding: 1.5rem; text-align: center; font-size: 13px; color: var(--muted); }
+
+  /* World clock */
+  .wc-wrap { margin: 1.25rem 0 0; background: var(--card); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden; }
+  canvas#wcCanvas { width: 100%; display: block; height: 110px; }
+  .wc-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0.85rem 1rem; border-top: 1px solid var(--border); align-items: center; }
+  .wc-chip { background: var(--paper); border: 1px solid var(--border); border-radius: 99px; padding: 5px 12px; display: flex; align-items: center; gap: 7px; font-size: 12px; }
+  .wc-chip-city { font-weight: 600; color: var(--ink); }
+  .wc-chip-time { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .wc-chip-rm { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 15px; line-height: 1; padding: 0 0 0 2px; }
+
+  @media (max-width: 440px) {
+    .booking-grid { grid-template-columns: 1fr; }
+    .money-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 380px) {
+    .day-tagline { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <img class="hero-logo" src="advenio_logo_white.png" alt="Advenio" width="900" height="201">
+    <div class="hero-eyebrow">Jeseníky · Léto 2026</div>
+    <h1>Stmelovák</h1>
+    <div class="hero-sub">29. – 31. července 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="section-header"><h2>Světový čas</h2><div class="section-line"></div></div>
+<div class="wc-wrap">
+  <canvas id="wcCanvas" width="640" height="110"></canvas>
+  <div class="wc-chips" id="wcChips"></div>
+</div>
+
+<div class="section-header"><h2>Předpověď na 7 dní</h2><div class="section-line"></div></div>
+<div class="weather-section">
+  <div class="weather-widget">
+    <div class="weather-header">
+      <div><div class="weather-title">Jeseník 🏔️ 🇨🇿</div><div class="weather-location">7 dní dopředu · české hory</div></div>
+      <div class="weather-updated" id="wu1"></div>
+    </div>
+    <div class="weather-scroll" id="ws1"><div class="weather-loading">Načítání…</div></div>
+  </div>
+</div>
+
+<div class="section-header"><h2>Den po dni</h2><div class="section-line"></div></div>
+
+<!-- 29.7 — ARRIVAL DAY -->
+<div class="day-card day-jesenik">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-num">29.7</div>
+    <div class="day-meta">
+      <div class="day-date">Středa 29. 7.</div>
+      <div class="day-title">Příjezd skupiny 🚂 🏔️</div>
+      <div class="day-tagline">Vlak 15:08 · Výšlap · Minigolf 16–18 · Večeře 19:00 · Diskotéka 21:00</div>
+    </div>
+    <div class="day-chevron">▼</div>
+  </div>
+  <div class="day-body">
+    <div class="alert"><b>Den příjezdu.</b> Vlakem z Prahy do Jeseníku (příjezd 15:08). Na nádraží budou vaše zavazadla vyzvednuta a odvezena autem a společně půjdeme pěšky nahoru do Lázní Jeseník.</div>
+
+    <div class="activity"><div class="activity-time">11:08</div><div class="activity-content">
+      <div class="activity-title">🚂 Vlak Praha hl.n. → Jeseník</div>
+      <div class="activity-desc"><b>Praha hl.n. 11:08</b> → Ex2 (EC 127 Valašský expres) → <b>Zábřeh na Moravě 13:11</b>. Přestup → R12 (Sp 1407) <b>13:31</b> → <b>Jeseník 15:08</b>. Celkový čas 4 hod · České dráhy.</div>
+      <a class="venue-link" href="https://idos.cz/vlaky/spojeni/draha/?p=MqbeLSwIjeP1G16N64D3rW:bg6WC:PJlPwQFyfxwCQ7eErveJr5.TvJZh:gYILiW&from=5457076&to=5435502&depTime=11:08&arrTime=13:11" target="_blank">🚂 Zobrazit spojení na IDOS →</a>
+      <div class="tags"><span class="tag tag-train">Ex2 EC 127 · 11:08</span><span class="tag tag-train">Přestup Zábřeh 13:11→13:31</span><span class="tag tag-train">Příjezd Jeseník 15:08</span></div>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">15:08</div><div class="activity-content">
+      <div class="activity-title">🛬 Příjezd do Jeseníku · vyzvednutí zavazadel</div>
+      <div class="activity-desc">Po příjezdu na nádraží v Jeseníku budou vaše zavazadla vyzvednuta a odvezena autem — nikdo nic netáhne do kopce.</div>
+      <div class="tags"><span class="tag tag-train">Nádraží Jeseník</span><span class="tag tag-hotel">Zavazadla odvezena autem</span></div>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">Pěšky</div><div class="activity-content">
+      <div class="activity-title">🚶 Výšlap do Lázní Jeseník</div>
+      <div class="activity-desc">Společně jdeme pěšky od nádraží nahoru do <b>Lázní Jeseník</b> (Priessnitzovy léčebné lázně). Zavazadla jedou autem, my si užijeme cestu nahoru.</div>
+      <a class="venue-link" href="https://www.google.com/maps/dir/50.22772,17.19352/50.2325,17.1942/50.2432388,17.1890502/@50.2371041,17.1884908,16z/data=!4m10!4m9!1m0!1m5!3m4!1m2!1d17.1887622!2d50.2411233!3s0x4711ee045700eb91:0x4f2f55bc56534709!1m0!3e2" target="_blank">🗺️ Otevřít trasu v Google Mapách →</a>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">16:00–18:00</div><div class="activity-content">
+      <div class="activity-title">🏌️ Minigolf</div>
+      <div class="activity-desc">Od <b>16:00 do 18:00</b> si v lázních zahrajeme minigolf. Pohodová zábava pro celou skupinu.</div>
+      <div class="tags"><span class="tag tag-walk">Minigolf 16:00–18:00</span></div>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">19:00</div><div class="activity-content">
+      <div class="activity-title">🍽️ Večeře · Restaurace U Pramene</div>
+      <div class="activity-desc">Společná večeře v <b>19:00</b> v restauraci <b>U Pramene</b>, Priessnitzova 78, 790 01 Jeseník.</div>
+      <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Restaurace%20U%20Pramene%20Priessnitzova%2078%20Jesen%C3%ADk" target="_blank">🗺️ Priessnitzova 78, Jeseník →</a>
+      <div class="tags"><span class="tag tag-food">Večeře 19:00</span></div>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">21:00</div><div class="activity-content">
+      <div class="activity-title">🎶 Na Hradní — diskotéka</div>
+      <div class="activity-desc">Ve <b>21:00</b> pokračujeme na <b>diskotéku Na Hradní</b>. Zábava a tanec.</div>
+      <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Na%20Hradn%C3%AD%20diskot%C3%A9ka%20Jesen%C3%ADk" target="_blank">🗺️ Na Hradní, Jeseník →</a>
+      <div class="tags"><span class="tag tag-culture">Diskotéka</span></div>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">22:00</div><div class="activity-content">
+      <div class="activity-title">🌙 Přesun na terasu</div>
+      <div class="activity-desc">Kolem <b>22:00</b> se přesuneme na terasu — posezení, výhledy a klidné zakončení večera.</div>
+      <div class="tags"><span class="tag tag-culture">Terasa</span></div>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">Noc</div><div class="activity-content">
+      <div class="activity-title">🏠 Ubytování · Lipovská 449/117</div>
+      <div class="activity-desc">Po diskotéce se přesuneme do domu na adrese <b>Lipovská 449/117, Jeseník</b>.</div>
+      <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Lipovsk%C3%A1%20449%2F117%20Jesen%C3%ADk" target="_blank">🗺️ Lipovská 449/117, Jeseník →</a>
+      <div class="tags"><span class="tag tag-hotel">Nocleh</span></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- 30.7 — HARMONOGRAM JESENÍKY (opens PDF) -->
+<div class="day-card day-zbiroh">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-num">30.7</div>
+    <div class="day-meta">
+      <div class="day-date">Čtvrtek 30. 7.</div>
+      <div class="day-title">Harmonogram výletu — Jeseníky 🏔️</div>
+      <div class="day-tagline">Harmonogram (PDF) · cyklotrasy · návrat · pingpong &amp; sauna · gril</div>
+    </div>
+    <div class="day-chevron">▼</div>
+  </div>
+  <div class="day-body">
+    <div class="activity"><div class="activity-time">📄 PDF</div><div class="activity-content">
+      <div class="activity-title">Harmonogram výletu (PDF)</div>
+      <div class="activity-desc">Podrobný srovnávací harmonogram tras — cyklo skupina (MTB / e-bike) vs. auto + pěší skupina.</div>
+      <a class="venue-link" href="harmonogram_jeseniky_30_7.pdf" target="_blank">📄 Otevřít harmonogram →</a>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">🚴 Cyklo</div><div class="activity-content">
+      <div class="activity-title">🗺️ Cyklotrasy dne — Google Mapy</div>
+      <div class="activity-desc">Trasa cyklo skupiny po jednotlivých úsecích na Mapy.cz (cyklo / MTB, klikni pro zobrazení trasy):</div>
+      <a class="venue-link" href="https://mapy.com/s/pekulusoma" target="_blank">① SPORT 2000 → Zlatý Chlum →</a>
+      <a class="venue-link" href="https://mapy.com/s/henupejacu" target="_blank">② Zlatý Chlum → Penzion Rejvíz →</a>
+      <a class="venue-link" href="https://mapy.com/s/komufasaze" target="_blank">③ Penzion Rejvíz → Křížový vrch →</a>
+      <a class="venue-link" href="https://mapy.com/s/jojunapave" target="_blank">④ Křížový vrch → SPORT 2000 →</a>
+      <div class="activity-desc" style="margin-top:10px"><b>📥 Offline (bez signálu):</b> stáhni si trasy do mobilu jedním klikem a otevři je v Mapy.cz jako GPX (předem si stáhni offline mapu Jeseníků):</div>
+      <a class="venue-link" href="trasa1_sport2000_zlaty_chlum.gpx" download>⬇️ GPX ① SPORT 2000 → Zlatý Chlum</a>
+      <a class="venue-link" href="trasa2_zlaty_chlum_rejviz.gpx" download>⬇️ GPX ② Zlatý Chlum → Rejvíz</a>
+      <a class="venue-link" href="trasa3_rejviz_krizovy_vrch.gpx" download>⬇️ GPX ③ Rejvíz → Křížový vrch</a>
+      <a class="venue-link" href="trasa4_krizovy_vrch_sport2000.gpx" download>⬇️ GPX ④ Křížový vrch → SPORT 2000</a>
+      <div class="tags"><span class="tag tag-walk">4 úseky</span><span class="tag tag-walk">Mapy.cz · MTB</span><span class="tag tag-walk">GPX offline</span></div>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">~17:30</div><div class="activity-content">
+      <div class="activity-title">🏠 Návrat na ubytování</div>
+      <div class="activity-desc">Kolem <b>17:30</b> návrat z výletu na ubytování U Jana.</div>
+      <div class="tags"><span class="tag tag-hotel">Ubytování</span></div>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">Podvečer</div><div class="activity-content">
+      <div class="activity-title">🏓 Pingpong &amp; sauna</div>
+      <div class="activity-desc">Po návratu <b>pingpong</b> a <b>sauna</b> — odpočinek před večerním grilováním.</div>
+      <div class="tags"><span class="tag tag-walk">Pingpong</span><span class="tag tag-culture">Sauna</span></div>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">~20:00</div><div class="activity-content">
+      <div class="activity-title">🔥 Grilování na terase</div>
+      <div class="activity-desc">Kolem <b>20:00 grilování na terase</b> — společné zakončení výletu.</div>
+      <div class="tags"><span class="tag tag-food">Gril</span><span class="tag tag-culture">Terasa</span></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- 31.7 — DEPARTURE BY TRAIN -->
+<div class="day-card day-dep">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-num">31.7</div>
+    <div class="day-meta">
+      <div class="day-date">Pátek 31. 7.</div>
+      <div class="day-title">Odjezd vlakem · Jeseník → Praha 🚂</div>
+      <div class="day-tagline">Výběr spojení: 8:52 · 10:52</div>
+    </div>
+    <div class="day-chevron">▼</div>
+  </div>
+  <div class="day-body">
+    <div class="alert"><b>Den odjezdu.</b> Vlakem z Jeseníku do Prahy hl.n. Vyberte si spojení podle času — obě s přestupem v Zábřehu na Moravě.</div>
+
+    <div class="activity"><div class="activity-time">8:52</div><div class="activity-content">
+      <div class="activity-title">🚂 Jeseník 8:52 → Praha hl.n. 12:52</div>
+      <div class="activity-desc">Celkový čas 4 h · 379 Kč.<br>Jeseník <b>8:52</b> → Zábřeh na Moravě 10:25 (R12 Sp 1410) → Zábřeh 10:41 → <b>Praha hl.n. 12:52</b> (Ex2 EC 220 Valašský expres).</div>
+      <a class="venue-link" href="https://idos.cz/vlaky/spojeni/draha/?p=MqbeLSwIjeO4ZQa4mPEhhM1kDbkQy:AYmr8erO5xU8Lhr8Kc2IBJt0Zvbnpz6rSH&from=5433892&to=5435502&depTime=8:52&arrTime=10:25" target="_blank">🚂 Zobrazit spojení na IDOS →</a>
+      <div class="tags"><span class="tag tag-train">Odj 8:52</span><span class="tag tag-train">1 přestup</span><span class="tag tag-train">379 Kč</span></div>
+    </div></div>
+
+    <div class="activity"><div class="activity-time">10:52</div><div class="activity-content">
+      <div class="activity-title">🚂 Jeseník 10:52 → Praha hl.n. 14:52</div>
+      <div class="activity-desc">Celkový čas 4 h · 345 Kč.<br>Jeseník <b>10:52</b> → Zábřeh na Moravě 12:25 (R12 Sp 1408) → Zábřeh 12:41 → <b>Praha hl.n. 14:52</b> (Ex2 EC 128 Valašský expres).</div>
+      <a class="venue-link" href="https://idos.cz/vlaky/spojeni/draha/?p=MqbeLSwIjeMQ.pownZSZXx9o87gxoHJqRdiZG9ZsxTZlR0bMTOVzglWEwksoGHqK&from=5433892&to=5435502&depTime=10:52&arrTime=12:25" target="_blank">🚂 Zobrazit spojení na IDOS →</a>
+      <div class="tags"><span class="tag tag-train">Odj 10:52</span><span class="tag tag-train">1 přestup</span><span class="tag tag-train">345 Kč</span></div>
+    </div></div>
+  </div>
+</div>
+
+<div class="section-header"><h2>Ubytování &amp; kontakt</h2><div class="section-line"></div></div>
+
+<img src="jesenik_view.jpg" alt="Jeseníky – výhled z hřebene (Chata Jiřího na Šeráku)" style="width:100%; height:auto; border-radius:var(--r); border:1px solid var(--border); box-shadow:var(--shadow); display:block; margin-top:1rem;" loading="lazy">
+
+<div class="booking-grid" style="margin-top:12px">
+  <div class="booking-card">
+    <div class="booking-airline">🏠 Ubytování</div>
+    <div class="booking-ref" style="font-size:18px">U Jana</div>
+    <div class="booking-who">Lipovská 449/117 · Jeseník 790 01</div>
+    <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Lipovsk%C3%A1%20449%2F117%20Jesen%C3%ADk" target="_blank">🗺️ Otevřít v mapách →</a>
+  </div>
+  <div class="booking-card">
+    <div class="booking-airline">🚕 Taxi</div>
+    <div class="booking-ref" style="font-size:18px">OK Taxi Jeseník</div>
+    <div class="booking-who">Odvoz po Jeseníku i okolí</div>
+    <a class="venue-link" href="tel:+420603759565">📞 +420 603 75 95 65</a>
+  </div>
+  <div class="booking-card">
+    <div class="booking-airline">🚕 Taxi</div>
+    <div class="booking-ref" style="font-size:18px">Black &amp; White Taxi Jeseník</div>
+    <div class="booking-who">Nonstop 24/7</div>
+    <a class="venue-link" href="tel:+420792252625">📞 +420 792 25 26 25</a>
+  </div>
+</div>
+
+<div class="day-card info-card" style="margin-top:1.5rem; margin-bottom:12px">
+  <div class="day-header" onclick="toggleDay(this)">
+    <div class="day-num" style="font-size:18px; background:rgba(184,134,11,0.15); color:var(--gold)">☔</div>
+    <div class="day-meta">
+      <div class="day-date">Tip</div>
+      <div class="day-title">V případě deště</div>
+      <div class="day-tagline">Klikni pro zobrazení tipů</div>
+    </div>
+    <div class="day-chevron">▼</div>
+  </div>
+  <div class="day-body">
+    <div style="padding:1rem">
+<div class="booking-grid">
+  <div class="booking-card">
+    <div class="booking-airline">🕳️ Jeskyně</div>
+    <div class="booking-ref" style="font-size:16px">Jeskyně Na Pomezí</div>
+    <div class="booking-who">Krápníková jeskyně u Lipové-lázní · prohlídka s průvodcem</div>
+    <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Jesky%C5%88%C4%9B%20Na%20Pomez%C3%AD" target="_blank">🗺️ Otevřít v mapách →</a>
+  </div>
+  <div class="booking-card">
+    <div class="booking-airline">🎳 Bowling</div>
+    <div class="booking-ref" style="font-size:16px">Bowling U Cimbury</div>
+    <div class="booking-who">Bowling &amp; občerstvení v Jeseníku</div>
+    <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Bowling%20U%20Cimbury%20Jesen%C3%ADk" target="_blank">🗺️ Otevřít v mapách →</a>
+  </div>
+  <div class="booking-card">
+    <div class="booking-airline">🏛️ Muzeum</div>
+    <div class="booking-ref" style="font-size:16px">Vodní tvrz</div>
+    <div class="booking-who">Vlastivědné muzeum Jesenicka · historie regionu</div>
+    <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Vodn%C3%AD%20tvrz%20muzeum%20Jesen%C3%ADk" target="_blank">🗺️ Otevřít v mapách →</a>
+  </div>
+  <div class="booking-card">
+    <div class="booking-airline">💧 Aquapark</div>
+    <div class="booking-ref" style="font-size:16px">Termály Velké Losiny</div>
+    <div class="booking-who">Termální aquapark · bazény, tobogány, wellness</div>
+    <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Term%C3%A1ln%C3%AD%20aquapark%20Velk%C3%A9%20Losiny" target="_blank">🗺️ Otevřít v mapách →</a>
+  </div>
+  <div class="booking-card">
+    <div class="booking-airline">🎳 Bowling</div>
+    <div class="booking-ref" style="font-size:16px">Bowling Na Palubě</div>
+    <div class="booking-who">Restaurace Na Palubě · bowling i kulečník</div>
+    <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Restaurace%20Na%20Palub%C4%9B%20Mikulovice%20bowling" target="_blank">🗺️ Otevřít v mapách →</a>
+  </div>
+  <div class="booking-card">
+    <div class="booking-airline">🎬 Kino</div>
+    <div class="booking-ref" style="font-size:16px">Kino Pohoda Jeseník</div>
+    <div class="booking-who">Městské kino · aktuální program</div>
+    <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Kino%20Jesen%C3%ADk" target="_blank">🗺️ Otevřít v mapách →</a>
+  </div>
+  <div class="booking-card">
+    <div class="booking-airline">🔥 Na ubytování</div>
+    <div class="booking-ref" style="font-size:16px">Grilování na terase</div>
+    <div class="booking-who">Krytá terasa u ubytování U Jana</div>
+    <a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=Lipovsk%C3%A1%20449%2F117%20Jesen%C3%ADk" target="_blank">🗺️ Otevřít v mapách →</a>
+  </div>
+  <div class="booking-card">
+    <div class="booking-airline">🚆 Pronájem vlaku</div>
+    <div class="booking-ref" style="font-size:16px">Výlet vlakem</div>
+    <div class="booking-who">Pronájem historického vozu · České dráhy</div>
+    <a class="venue-link" href="https://www.cd.cz/pro-firmy/-26414/" target="_blank">🚆 Info na cd.cz →</a>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <div class="footer-emoji">🚂 🥾 🏔️ 💃 🚵 🏓 🍖 🚂</div>
+</footer>
+
+<script>
+function toggleDay(header) {
+  const body = header.nextElementSibling;
+  const chev = header.querySelector('.day-chevron');
+  body.classList.toggle('open', !body.classList.contains('open'));
+  chev.classList.toggle('open', !chev.classList.contains('open'));
+}
+// WEATHER
+const WMO = c => {
+  if (c===0) return {icon:'☀️'};
+  if (c<=2) return {icon:'🌤️'};
+  if (c<=3) return {icon:'☁️'};
+  if (c<=48) return {icon:'🌫️'};
+  if (c<=57) return {icon:'🌦️'};
+  if (c<=67) return {icon:'🌧️'};
+  if (c<=77) return {icon:'❄️'};
+  if (c<=82) return {icon:'🌧️'};
+  return {icon:'⛈️'};
+};
+async function loadWeather(lat, lon, scrollId, updId) {
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=7`;
+    const d = await (await fetch(url)).json();
+    const { time, weathercode, temperature_2m_max, temperature_2m_min, precipitation_probability_max } = d.daily;
+    const today = new Date().toISOString().slice(0,10);
+    document.getElementById(scrollId).innerHTML = time.map((t,i) => {
+      const dt = new Date(t + 'T12:00:00');
+      const name = dt.toLocaleDateString('cs', {weekday:'short'}).toUpperCase();
+      const date = dt.toLocaleDateString('cs', {day:'numeric', month:'short'});
+      const w = WMO(weathercode[i]);
+      const rain = precipitation_probability_max[i];
+      const isToday = t === today;
+      return `<div class="weather-day${isToday?' today':''}">
+        <div class="weather-day-name">${name}</div>
+        <div class="weather-day-date">${date}</div>
+        <div class="weather-icon">${w.icon}</div>
+        <div class="weather-hi">${Math.round(temperature_2m_max[i])}°C</div>
+        <div class="weather-lo">${Math.round(temperature_2m_min[i])}°C</div>
+        <div class="weather-rain">${rain > 15 ? rain+'%' : ''}</div>
+      </div>`;
+    }).join('');
+    document.getElementById(updId).textContent = 'Živě';
+  } catch(e) {
+    document.getElementById(scrollId).innerHTML = '<div class="weather-loading">Nedostupné</div>';
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  loadWeather(50.2333, 17.2000, 'ws1', 'wu1'); // Jeseník
+});
+
+// WORLD CLOCK — LA, Jeseník
+(function(){
+  const WC_FIXED = [
+    {id:'la',      name:'Los Angeles',    lon:-118.2, lat:34.1, tz:'America/Los_Angeles'},
+    {id:'jesenik', name:'Jeseník',         lon:17.2,  lat:50.2, tz:'Europe/Prague'},
+  ];
+  const LAND=[
+    [[-168,72],[-140,60],[-130,55],[-124,49],[-122,38],[-118,34],[-110,23],[-97,20],[-90,16],[-84,10],[-80,8],[-83,10],[-87,15],[-97,26],[-90,29],[-82,30],[-80,25],[-75,25],[-74,43],[-68,47],[-65,44],[-75,44],[-82,43],[-84,46],[-88,46],[-96,49],[-110,49],[-124,49],[-130,55],[-140,58],[-155,60],[-165,65],[-168,72]],
+    [[-72,82],[-25,83],[-18,70],[-25,65],[-48,62],[-55,63],[-68,67],[-72,82]],
+    [[-80,12],[-65,10],[-55,5],[-50,0],[-48,-5],[-35,-8],[-35,-13],[-43,-22],[-48,-26],[-52,-34],[-56,-38],[-65,-55],[-69,-55],[-73,-48],[-72,-38],[-70,-20],[-73,-15],[-78,-5],[-80,8],[-80,12]],
+    [[-9,36],[-2,36],[0,38],[3,43],[7,44],[15,46],[18,43],[25,42],[28,41],[36,37],[36,42],[30,48],[24,56],[20,60],[25,65],[27,70],[15,70],[5,62],[0,51],[-5,48],[-6,44],[-9,39],[-9,36]],
+    [[-6,50],[-2,50],[2,52],[0,58],[-4,58],[-8,56],[-6,52],[-6,50]],
+    [[-24,63],[-13,63],[-13,66],[-24,66],[-24,63]],
+    [[-17,14],[-5,37],[10,37],[15,38],[30,32],[32,31],[30,30],[25,-34],[18,-35],[12,-18],[9,-10],[8,4],[2,5],[-8,5],[-13,8],[-17,14]],
+    [[36,37],[42,38],[58,24],[56,22],[44,12],[42,12],[38,15],[37,25],[36,32],[36,37]],
+    [[28,42],[30,50],[40,36],[48,38],[56,42],[60,55],[65,67],[75,73],[90,78],[110,74],[130,72],[142,62],[155,60],[165,55],[175,50],[170,38],[145,35],[140,35],[130,32],[122,30],[110,20],[105,0],[104,-5],[106,-8],[115,-8],[120,2],[108,4],[104,10],[108,20],[110,22],[120,24],[122,30],[130,35],[140,40],[140,48],[130,52],[140,58],[143,62],[155,60],[165,55],[175,50],[178,52],[160,65],[130,70],[110,74],[90,78],[75,73],[65,67],[56,42],[48,38],[42,38],[36,37],[30,48],[24,56],[28,42]],
+    [[68,22],[72,20],[78,8],[80,10],[88,22],[85,28],[80,28],[74,28],[68,22]],
+    [[114,-22],[120,-15],[128,-12],[136,-12],[140,-16],[148,-20],[154,-27],[155,-32],[152,-38],[146,-40],[136,-36],[115,-34],[113,-30],[114,-22]],
+    [[-180,-68],[-120,-65],[-60,-70],[0,-68],[60,-68],[120,-66],[180,-68],[180,-90],[-180,-90],[-180,-68]],
+  ];
+  const W=640,H=110;
+  const toX=lon=>(lon+180)/360*W;
+  const toY=lat=>(90-lat)/180*H;
+  let offscreen=null;
+
+  function initMap(){
+    offscreen=document.createElement('canvas');offscreen.width=W;offscreen.height=H;
+    const c=offscreen.getContext('2d');
+    c.fillStyle='#19385a';c.fillRect(0,0,W,H);
+    c.strokeStyle='rgba(255,255,255,0.06)';c.lineWidth=0.5;
+    [-150,-120,-90,-60,-30,0,30,60,90,120,150].forEach(lon=>{c.beginPath();c.moveTo(toX(lon),0);c.lineTo(toX(lon),H);c.stroke();});
+    [-60,-30,0,30,60].forEach(lat=>{c.beginPath();c.moveTo(0,toY(lat));c.lineTo(W,toY(lat));c.stroke();});
+    c.fillStyle='#2e5e40';
+    LAND.forEach(poly=>{c.beginPath();poly.forEach(([lon,lat],i)=>i===0?c.moveTo(toX(lon),toY(lat)):c.lineTo(toX(lon),toY(lat)));c.closePath();c.fill();});
+  }
+  function sunPos(d){
+    const start=new Date(d.getFullYear(),0,0);const doy=Math.floor((d-start)/86400000);
+    const decl=-23.45*Math.cos(2*Math.PI/365*(doy+10));
+    const utcH=d.getUTCHours()+d.getUTCMinutes()/60+d.getUTCSeconds()/3600;
+    let slon=(12-utcH)*15;slon=((slon+180+360)%360)-180;
+    return {lon:slon,lat:decl};
+  }
+  function drawNight(ctx,slon,slat){
+    const D=Math.PI/180;const sl=Math.abs(slat)<0.8?(slat>=0?0.8:-0.8):slat;
+    const tanSL=Math.tan(sl*D);const pts=[];
+    for(let lon=-180;lon<=180;lon+=1.5){
+      const cosHA=Math.cos((lon-slon)*D);const lat=Math.atan(-cosHA/tanSL)/D;
+      pts.push([toX(lon),toY(Math.max(-89,Math.min(89,lat)))]);
+    }
+    const southNight=sl>0;
+    ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);
+    pts.slice(1).forEach(([x,y])=>ctx.lineTo(x,y));
+    if(southNight){ctx.lineTo(W,H);ctx.lineTo(0,H);}else{ctx.lineTo(W,0);ctx.lineTo(0,0);}
+    ctx.closePath();ctx.fillStyle='rgba(0,8,28,0.54)';ctx.fill();
+    ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);
+    pts.slice(1).forEach(([x,y])=>ctx.lineTo(x,y));
+    ctx.strokeStyle='rgba(255,210,120,0.18)';ctx.lineWidth=3;ctx.stroke();
+  }
+  function drawCities(ctx){
+    WC_FIXED.forEach(c=>{
+      const x=toX(c.lon),y=toY(c.lat);
+      ctx.beginPath();ctx.arc(x,y,7,0,2*Math.PI);ctx.fillStyle='rgba(255,210,60,0.2)';ctx.fill();
+      ctx.beginPath();ctx.arc(x,y,3,0,2*Math.PI);ctx.fillStyle='#ffd040';ctx.fill();
+      ctx.strokeStyle='rgba(0,0,0,0.55)';ctx.lineWidth=0.8;ctx.stroke();
+      ctx.font='700 9px DM Sans,sans-serif';ctx.fillStyle='#fff';
+      ctx.shadowColor='rgba(0,0,0,0.9)';ctx.shadowBlur=4;
+      ctx.fillText(c.name,x+5,y+2);ctx.shadowBlur=0;
+    });
+  }
+  function fmtTime(tz){return new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:tz}).format(new Date());}
+  function renderChips(){
+    const el=document.getElementById('wcChips');if(!el)return;
+    el.innerHTML=WC_FIXED.map(c=>
+      `<div class="wc-chip"><span class="wc-chip-city">${c.name}</span><span class="wc-chip-time">${fmtTime(c.tz)}</span></div>`
+    ).join('');
+  }
+  function draw(){
+    const canvas=document.getElementById('wcCanvas');if(!canvas||!offscreen)return;
+    const ctx=canvas.getContext('2d');ctx.drawImage(offscreen,0,0);
+    const s=sunPos(new Date());const sx=toX(s.lon),sy=toY(s.lat);
+    ctx.beginPath();ctx.arc(sx,sy,10,0,2*Math.PI);ctx.fillStyle='rgba(255,230,80,0.15)';ctx.fill();
+    ctx.beginPath();ctx.arc(sx,sy,5,0,2*Math.PI);ctx.fillStyle='rgba(255,230,80,0.4)';ctx.fill();
+    drawNight(ctx,s.lon,s.lat);drawCities(ctx);renderChips();
+  }
+  document.addEventListener('DOMContentLoaded',()=>{initMap();draw();setInterval(draw,1000);});
+})();
+</script>
+</body>
+</html>
